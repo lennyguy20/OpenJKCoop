@@ -1,17 +1,17 @@
 #============================================================================
 # Copyright (C) 2013 - 2018, OpenJK contributors
-# 
+#
 # This file is part of the OpenJK source code.
-# 
+#
 # OpenJK is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 2 as
 # published by the Free Software Foundation.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/>.
 #============================================================================
@@ -94,6 +94,14 @@ endif()
 #
 #=============================================================================
 list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_SOURCE_DIR}/cmake/Modules")
+
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+	add_custom_target(
+		copy-compile-commands ALL
+		${CMAKE_COMMAND} -E copy_if_different
+		${CMAKE_BINARY_DIR}/compile_commands.json
+		${CMAKE_CURRENT_LIST_DIR})
+endif()
 
 #=============================================================================
 #
@@ -248,7 +256,7 @@ elseif (("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU") OR ("${CMAKE_C_COMPILER_ID}" M
 
 	# enable somewhat modern C++
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-	
+
 	if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
 		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-comment")
