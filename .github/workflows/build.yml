@@ -78,7 +78,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.build_type == 'Release' }}
         with:
-          name: OpenJO-windows-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
+          name: OpenJA-windows-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
           path: ${{ github.workspace }}/build/bin/JediOutcast
           if-no-files-found: error
 
@@ -153,7 +153,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.build_type == 'Release' }}
         with:
-          name: OpenJO-windowsxp-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
+          name: OpenJA-windowsxp-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
           path: ${{ github.workspace }}/build/bin/JediOutcast
           if-no-files-found: error
 
@@ -218,11 +218,11 @@ jobs:
         shell: bash
         run: tar -czvf OpenJK-linux-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz *
 
-      - name: Create OpenJO binary archive
+      - name: Create OpenJA binary archive
         if: ${{ matrix.build_type == 'Release' }}
         working-directory: ${{ github.workspace }}/install/JediOutcast
         shell: bash
-        run: tar -czvf OpenJO-linux-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz *
+        run: tar -czvf OpenJA-linux-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz *
 
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.build_type == 'Release' }}
@@ -234,8 +234,8 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.build_type == 'Release' }}
         with:
-          name: OpenJO-linux-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
-          path: ${{github.workspace}}/install/JediOutcast/OpenJO-linux-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz
+          name: OpenJA-linux-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
+          path: ${{github.workspace}}/install/JediOutcast/OpenJA-linux-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz
           if-no-files-found: error
 
   macos:
@@ -288,13 +288,13 @@ jobs:
           chmod +x openjk.x86_64.app/Contents/MacOS/openjk.x86_64
           tar -czvf openjk-macos-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz *
 
-      - name: Create OpenJO binary archive
+      - name: Create OpenJA binary archive
         if: ${{ matrix.build_type == 'Release' }}
         working-directory: ${{ github.workspace }}/install/JediOutcast
         shell: bash
         run: |
-          chmod +x openjo_sp.x86_64.app/Contents/MacOS/openjo_sp.x86_64
-          tar -czvf openjo_sp-macos-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz *
+          chmod +x OpenJA_sp.x86_64.app/Contents/MacOS/OpenJA_sp.x86_64
+          tar -czvf OpenJA_sp-macos-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz *
 
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.build_type == 'Release' }}
@@ -306,8 +306,8 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.build_type == 'Release' }}
         with:
-          name: OpenJO-macos-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
-          path: ${{ github.workspace }}/install/JediOutcast/openjo_sp-macos-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz
+          name: OpenJA-macos-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}
+          path: ${{ github.workspace }}/install/JediOutcast/OpenJA_sp-macos-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.portable }}.tar.gz
           if-no-files-found: error
 
   create-latest:
@@ -330,11 +330,11 @@ jobs:
           mv ./OpenJK-linux-x86_64-Release-Non-Portable/* OpenJK-linux-x86_64.tar.gz
           mv ./OpenJK-macos-x86_64-Release-Non-Portable/* OpenJK-macos-x86_64.tar.gz
 
-          7z a -r OpenJO-windows-x86.zip ./OpenJO-windows-x86-Release-Non-Portable/* '-x!msvcp*.*' '-x!vcruntime*.*' '-x!concrt*.*'
-          7z a -r OpenJO-windows-x86_64.zip ./OpenJO-windows-x86_64-Release-Non-Portable/* '-x!msvcp*.*' '-x!vcruntime*.*' '-x!concrt*.*'
-          mv ./OpenJO-linux-x86-Release-Non-Portable/* OpenJO-linux-x86.tar.gz
-          mv ./OpenJO-linux-x86_64-Release-Non-Portable/* OpenJO-linux-x86_64.tar.gz
-          mv ./OpenJO-macos-x86_64-Release-Non-Portable/* OpenJO-macos-x86_64.tar.gz
+          7z a -r OpenJA-windows-x86.zip ./OpenJA-windows-x86-Release-Non-Portable/* '-x!msvcp*.*' '-x!vcruntime*.*' '-x!concrt*.*'
+          7z a -r OpenJA-windows-x86_64.zip ./OpenJA-windows-x86_64-Release-Non-Portable/* '-x!msvcp*.*' '-x!vcruntime*.*' '-x!concrt*.*'
+          mv ./OpenJA-linux-x86-Release-Non-Portable/* OpenJA-linux-x86.tar.gz
+          mv ./OpenJA-linux-x86_64-Release-Non-Portable/* OpenJA-linux-x86_64.tar.gz
+          mv ./OpenJA-macos-x86_64-Release-Non-Portable/* OpenJA-macos-x86_64.tar.gz
 
       - name: Create latest build
         uses: marvinpinto/action-automatic-releases@latest
@@ -375,24 +375,24 @@ jobs:
             artifact_name: OpenJK-macos-x86_64.tar.gz
             zip: false
 
-          - artifact_dir: OpenJO-windows-x86-Release-Non-Portable/JediOutcast
-            artifact_name: OpenJO-windows-x86.zip
+          - artifact_dir: OpenJA-windows-x86-Release-Non-Portable/JediOutcast
+            artifact_name: OpenJA-windows-x86.zip
             zip: true
 
-          - artifact_dir: OpenJO-windows-x86_64-Release-Non-Portable/JediOutcast
-            artifact_name: OpenJO-windows-x86_64.zip
+          - artifact_dir: OpenJA-windows-x86_64-Release-Non-Portable/JediOutcast
+            artifact_name: OpenJA-windows-x86_64.zip
             zip: true
 
-          - artifact_dir: OpenJO-linux-x86-Release-Non-Portable
-            artifact_name: OpenJO-linux-x86.tar.gz
+          - artifact_dir: OpenJA-linux-x86-Release-Non-Portable
+            artifact_name: OpenJA-linux-x86.tar.gz
             zip: false
 
-          - artifact_dir: OpenJO-linux-x86_64-Release-Non-Portable
-            artifact_name: OpenJO-linux-x86_64.tar.gz
+          - artifact_dir: OpenJA-linux-x86_64-Release-Non-Portable
+            artifact_name: OpenJA-linux-x86_64.tar.gz
             zip: false
 
-          - artifact_dir: OpenJO-macos-x86_64-Release-Non-Portable
-            artifact_name: OpenJO-macos-x86_64.tar.gz
+          - artifact_dir: OpenJA-macos-x86_64-Release-Non-Portable
+            artifact_name: OpenJA-macos-x86_64.tar.gz
             zip: false
 
     steps:
